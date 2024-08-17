@@ -1,0 +1,90 @@
+package com.geometric.analisis;
+
+//importaciones
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import com.geometric.abstracto.Instruccion;
+import com.geometric.simbolo.Tipo;
+import com.geometric.simbolo.TipoDato;
+
+// Instrucciones
+import com.geometric.instrucciones.*;
+
+// Expresiones;
+import com.geometric.expresiones.Nativo;
+import com.geometric.expresiones.Aritmeticas;
+import com.geometric.expresiones.OperadoresAritmeticos;
+
+//Parser
+parser code
+{:
+    scanner s;
+    Sintactico(scanner s) {this.s = s;}
+
+    public void syntax_error(Symbol s){
+        System.out.println("Error sintáctico en la linea " + 
+        (s.left) + " y columna " + (s.right) + 
+        ", No se esperaba el componente: "  + (s.value));
+    }
+
+    public void unrecovered_syntax_error (Symbol s){
+        System.out.println("Error sintáctico no recuperable en la línea "  + 
+        (s.left) + " y columna " + (s.right) +
+        ", No se esperaba el componente: " +(s.value));
+    }
+
+:}
+
+action code 
+{:
+
+:}
+
+//Terminales
+terminal String ID, ENTERO, DECIMAL,COMA;
+terminal GRAFICAR, CIRCULO, CUADRADO, POLIGONO, RECTANGULO,LINEA, AZUL, ROJO, AMARILLO, VERDE;
+terminal PAR_A, PAR_C, MAS, MENOS, MULTIPLICACION, DIVISION, UMENOS;
+
+//No Terminales
+nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
+nonterminal Instruccion INSTRUCCION;
+nonterminal Instruccion EXPRESION;
+nonterminal Instruccion POSICION;
+nonterminal String COLOR;
+
+precedence left MAS,MENOS;
+precedence left MULTIPLICACION,DIVISION;
+precedence left UMENOS;
+
+start with INICIO;
+
+INICIO ::= INSTRUCCIONES:a          {:      RESULT = a;         :}
+;
+
+INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b         {:     RESULT = a; RESULT.add(b);   :}
+                                    | INSTRUCCION:a                                                   {:      RESULT = new LinkedList<>();  RESULT.add(a);   :}
+;
+
+INSTRUCCION ::= GRAFICAR CIRCULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                                     {:  RESULT = new GraficarCirculo(a,b,c,d,e, aleft, aright);   :}
+                                  | GRAFICAR CUADRADO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                                {:  RESULT = new GraficarCuadrado(a, b, c, d, e, aleft, aright);  :}
+                                  | GRAFICAR RECTANGULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C  {: RESULT = new GraficarRectangulo(a, b, c, d, e, f, aleft, aright); :}
+                                  | GRAFICAR LINEA PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C                   {: RESULT = new GraficarLinea(a, b, c, d, e, f, aleft, aright); :}
+                                  | GRAFICAR POLIGONO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA EXPRESION:f COMA COLOR:g PAR_C  {: RESULT = new GraficarPoligono(a, b, c, d, e, f, g, aleft, aright); :}
+;
+
+EXPRESION ::= MENOS EXPRESION:a                                                             {:      RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright );     :}%prec UMENOS
+                            |  EXPRESION:a MAS EXPRESION:b                                      {:      RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.SUMA, aleft, aright );     :}%prec MAS
+                            | EXPRESION:a MENOS EXPRESION:b                                {: RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.RESTA, aleft, aright);        :}%prec MENOS
+                            | EXPRESION:a MULTIPLICACION EXPRESION:b            {: RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.MULTIPLICACION, aleft, aright);:} %prec MULTIPLICACION
+                            | EXPRESION:a DIVISION EXPRESION:b                             {: RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.DIVISION, aleft, aright);      :}%prec DIVISION
+                            |  ENTERO:a                                                                                     {:      RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright );     :}
+                            |  DECIMAL:a                                                                                    {:      RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright );     :}
+                            | PAR_A EXPRESION:a PAR_C                                                   {: RESULT = a; :}
+;
+
+COLOR ::=                                   AZUL:a               {: RESULT = "azul"; :}
+                                                     | ROJO:a                {: RESULT = "rojo"; :}
+                                                     | AMARILLO:a      {: RESULT = "amarillo"; :}
+                                                     | VERDE:a              {: RESULT = "verde"; :}
+;
+            
