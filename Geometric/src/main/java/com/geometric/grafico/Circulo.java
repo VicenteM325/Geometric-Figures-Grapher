@@ -23,6 +23,6 @@ public class Circulo implements Figura {
     @Override
     public void dibujar(Graphics g) {
         g.setColor(color);
-        g.drawOval(x - radio, y - radio, 2 * radio, 2 * radio);
+        g.fillOval(x - radio, y - radio, 2 * radio, 2 * radio);
     }
 }

@@ -8,28 +8,33 @@ package com.geometric.analisis;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
+  public static final int GRIS = 18;
   public static final int LINEA = 11;
-  public static final int MENOS = 19;
-  public static final int MULTIPLICACION = 20;
+  public static final int MENOS = 24;
+  public static final int MULTIPLICACION = 25;
+  public static final int ANARANJADO = 20;
   public static final int DECIMAL = 4;
-  public static final int DIVISION = 21;
-  public static final int PAR_C = 17;
+  public static final int DIVISION = 26;
+  public static final int PAR_C = 22;
   public static final int CUADRADO = 8;
-  public static final int UMENOS = 22;
-  public static final int PAR_A = 16;
+  public static final int UMENOS = 27;
+  public static final int PAR_A = 21;
   public static final int VERDE = 15;
   public static final int ID = 2;
   public static final int ROJO = 13;
   public static final int GRAFICAR = 6;
+  public static final int ROSADO = 16;
   public static final int AMARILLO = 14;
   public static final int COMA = 5;
   public static final int EOF = 0;
+  public static final int CELESTE = 17;
   public static final int error = 1;
   public static final int POLIGONO = 9;
   public static final int CIRCULO = 7;
   public static final int AZUL = 12;
   public static final int ENTERO = 3;
-  public static final int MAS = 18;
+  public static final int NEGRO = 19;
+  public static final int MAS = 23;
   public static final int RECTANGULO = 10;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -48,6 +53,11 @@ public class sym {
   "ROJO",
   "AMARILLO",
   "VERDE",
+  "ROSADO",
+  "CELESTE",
+  "GRIS",
+  "NEGRO",
+  "ANARANJADO",
   "PAR_A",
   "PAR_C",
   "MAS",

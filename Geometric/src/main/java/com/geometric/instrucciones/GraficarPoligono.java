@@ -2,6 +2,9 @@ package com.geometric.instrucciones;
 
 import com.geometric.abstracto.Instruccion;
 import com.geometric.excepciones.Errores;
+import com.geometric.grafico.ColorUtil;
+import com.geometric.grafico.Poligono;
+import com.geometric.grafico.Principal;
 import com.geometric.simbolo.Arbol;
 import com.geometric.simbolo.TablaSimbolos;
 import com.geometric.simbolo.Tipo;
@@ -39,93 +42,39 @@ public class GraficarPoligono extends Instruccion {
     @Override
     public Object interpretar(Arbol arbol, TablaSimbolos tabla) {
         Object valorPosX = posX.interpretar(arbol, tabla);
-        if (valorPosX instanceof Errores) return valorPosX;
-
         Object valorPosY = posY.interpretar(arbol, tabla);
-        if (valorPosY instanceof Errores) return valorPosY;
-
-        Object valorCantidadLados = cantidadLados.interpretar(arbol, tabla);
-        if (valorCantidadLados instanceof Errores) return valorCantidadLados;
-
+        Object valorLados = cantidadLados.interpretar(arbol, tabla);
         Object valorAncho = ancho.interpretar(arbol, tabla);
-        if (valorAncho instanceof Errores) return valorAncho;
-
         Object valorAlto = alto.interpretar(arbol, tabla);
-        if (valorAlto instanceof Errores) return valorAlto;
 
-        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorCantidadLados instanceof Integer) || !(valorAncho instanceof Integer) || !(valorAlto instanceof Integer)) {
-            return new Errores("SEMANTICO", "Los valores de posición, cantidad de lados, ancho y alto deben ser enteros", this.linea, this.columna);
+        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorLados instanceof Integer) || !(valorAncho instanceof Integer) || !(valorAlto instanceof Integer)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser enteros", this.linea, this.columna);
         }
 
         int x = (int) valorPosX;
         int y = (int) valorPosY;
-        int lados = (int) valorCantidadLados;
-        int ancho = (int) valorAncho;
-        int alto = (int) valorAlto;
+        int n = (int) valorLados;
+        int w = (int) valorAncho;
+        int h = (int) valorAlto;
+  
+        System.out.println("Graficando figura: ");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Posición: (" + x + ", " + y + ")");
+        System.out.println("Cantidad de Lados: " + n);
+        System.out.println("Ancho: " + w);
+        System.out.println("Alto: " + h);
+        System.out.println("Color: " + color);
+        
+        Color colorFigura;
+        try {
+            colorFigura = ColorUtil.getColorFromName(color);
+        } catch (IllegalArgumentException e) {
+            return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
+        }
 
-        graficarPoligono(nombre, x, y, lados, ancho, alto, color);
+        Principal principal = Principal.getInstance();
+        principal.getPanelDibujo().agregarFigura(new Poligono(nombre, x, y, n, w, h, colorFigura));
 
         return null;
-    }
-
-    private void graficarPoligono(String nombre, int x, int y, int lados, int ancho, int alto, String color) {
-        System.out.println("Graficando poligono '" + nombre + "' en (" + x + ", " + y + "), con (" + lados + " lados, Ancho " + ancho + " alto " + alto + ")" + " y color " + color);            
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Graficar Polígono: " + nombre);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new DibujarPoligono(x, y, lados, ancho, alto, color));
-            frame.setSize(400, 400);
-            frame.setVisible(true);
-        });
-    }
-
-    private static class DibujarPoligono extends JPanel {
-        private int x;
-        private int y;
-        private int lados;
-        private int ancho;
-        private int alto;
-        private Color color;
-
-        public DibujarPoligono(int x, int y, int lados, int ancho, int alto, String color) {
-            this.x = x;
-            this.y = y;
-            this.lados = lados;
-            this.ancho = ancho;
-            this.alto = alto;
-            this.color = parseColor(color);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(color);
-
-            int[] xPoints = new int[lados];
-            int[] yPoints = new int[lados];
-
-            double angle = 2 * Math.PI / lados;
-            for (int i = 0; i < lados; i++) {
-                xPoints[i] = (int) (x + ancho * Math.cos(i * angle));
-                yPoints[i] = (int) (y + alto * Math.sin(i * angle));
-            }
-
-            g.fillPolygon(xPoints, yPoints, lados);
-        }
-
-        private Color parseColor(String color) {
-            switch (color.toLowerCase()) {
-                case "azul":
-                    return Color.BLUE;
-                case "rojo":
-                    return Color.RED;
-                case "amarillo":
-                    return Color.YELLOW;
-                case "verde":
-                    return Color.GREEN;
-                default:
-                    return Color.BLACK;
-            }
-        }
     }
 }

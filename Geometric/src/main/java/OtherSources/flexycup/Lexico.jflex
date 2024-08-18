@@ -45,7 +45,11 @@ ID=[a-zA-z][a-zA-Z0-9_]*
      ROJO = "rojo"
      AMARILLO = "amarillo"
      VERDE ="verde"
-     //faltan 5 mas
+     ROSADO="rosado"
+     CELESTE="celeste"
+    GRIS="gris"
+    NEGRO="negro"
+    ANARANJADO="anaranjado"
     
     //Instruccion
     GRAFICAR = "graficar"
@@ -71,6 +75,11 @@ ID=[a-zA-z][a-zA-Z0-9_]*
 <YYINITIAL> {ROJO} {return new Symbol(sym.ROJO, yyline, yycolumn,yytext()); }
 <YYINITIAL> {AMARILLO} {return new Symbol(sym.AMARILLO, yyline, yycolumn,yytext()); }
 <YYINITIAL> {VERDE} {return new Symbol(sym.VERDE, yyline, yycolumn,yytext()); }
+<YYINITIAL> {ROSADO} {return new Symbol(sym.ROSADO, yyline, yycolumn,yytext()); }
+<YYINITIAL> {CELESTE} {return new Symbol(sym.CELESTE, yyline, yycolumn,yytext()); }
+<YYINITIAL> {GRIS} {return new Symbol(sym.GRIS, yyline, yycolumn,yytext()); }
+<YYINITIAL> {NEGRO} {return new Symbol(sym.NEGRO, yyline, yycolumn,yytext()); }
+<YYINITIAL> {ANARANJADO} {return new Symbol(sym.ANARANJADO, yyline, yycolumn,yytext()); }
 
 <YYINITIAL> {ID} {return new Symbol(sym.ID, yyline, yycolumn, yytext());}
 

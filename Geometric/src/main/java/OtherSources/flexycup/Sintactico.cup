@@ -43,6 +43,7 @@ action code
 //Terminales
 terminal String ID, ENTERO, DECIMAL,COMA;
 terminal GRAFICAR, CIRCULO, CUADRADO, POLIGONO, RECTANGULO,LINEA, AZUL, ROJO, AMARILLO, VERDE;
+terminal    ROSADO,CELESTE,GRIS,NEGRO, ANARANJADO;
 terminal PAR_A, PAR_C, MAS, MENOS, MULTIPLICACION, DIVISION, UMENOS;
 
 //No Terminales
@@ -86,5 +87,10 @@ COLOR ::=                                   AZUL:a               {: RESULT = "az
                                                      | ROJO:a                {: RESULT = "rojo"; :}
                                                      | AMARILLO:a      {: RESULT = "amarillo"; :}
                                                      | VERDE:a              {: RESULT = "verde"; :}
+                                                     | ROSADO:a              {: RESULT = "rosado"; :}
+                                                     | CELESTE:a              {: RESULT = "celeste"; :}
+                                                     | GRIS:a              {: RESULT = "gris"; :}
+                                                     | NEGRO:a              {: RESULT = "negro"; :}
+                                                     | ANARANJADO:a              {: RESULT = "anaranjado"; :}
 ;
             

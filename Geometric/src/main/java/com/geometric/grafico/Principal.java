@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.geometric.grafico;
 
 import com.geometric.abstracto.Instruccion;
@@ -10,23 +6,52 @@ import com.geometric.analisis.scanner;
 import com.geometric.excepciones.Errores;
 import com.geometric.simbolo.Arbol;
 import com.geometric.simbolo.TablaSimbolos;
+import static com.sun.source.util.DocTrees.instance;
+import static com.sun.source.util.JavacTask.instance;
+import static com.sun.source.util.Trees.instance;
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author vicente
  */
 public class Principal extends javax.swing.JFrame {
+    private static Principal instance;
+    
+    private PanelDibujo panelDibujo;
+    private JPanel panelFiguras;
+     private ArrayList<Figura> figuras;
 
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
-    }
+        panelEntrada.setLayout(new BorderLayout());
+        panelDibujo = new PanelDibujo();
+        panelEntrada.add(panelDibujo, BorderLayout.CENTER);
+        figuras = new ArrayList<>();
 
+    }
+    
+    public static Principal getInstance() {
+        if (instance == null) {
+            instance = new Principal();
+        }
+        return instance;
+    }
+    
+     public ArrayList<Figura> getFiguras() {
+        return figuras;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelEntrada = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaEntrada = new javax.swing.JTextArea();
         btnCompilar = new javax.swing.JButton();
@@ -46,13 +71,13 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelEntrada.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextAreaEntrada.setColumns(20);
         jTextAreaEntrada.setRows(5);
         jScrollPane1.setViewportView(jTextAreaEntrada);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 660, 240));
+        panelEntrada.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 660, 240));
 
         btnCompilar.setText("COMPILAR");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
@@ -60,65 +85,83 @@ public class Principal extends javax.swing.JFrame {
                 btnCompilarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCompilar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, -1, -1));
+        panelEntrada.add(btnCompilar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, -1, -1));
 
         jLabelEntrada.setText("Entrada");
-        jPanel1.add(jLabelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        panelEntrada.add(jLabelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
 
         jTextConsola.setColumns(20);
         jTextConsola.setRows(5);
         jScrollPane2.setViewportView(jTextConsola);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
+        panelEntrada.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
-        try {
-            String texto = jTextAreaEntrada.getText();
-            scanner s = new scanner(new BufferedReader(new StringReader(texto)));
-            Sintactico p = new Sintactico(s);
-            var resultado = p.parse();
-            var ast = new Arbol((LinkedList<Instruccion>) resultado.value);
-            var tabla = new TablaSimbolos();
-            tabla.setNombre("Global");
-            ast.setConsola("");
-            LinkedList<Errores> lista = new LinkedList<>();
-          //  lista.addAll(s.listaErrores);
-           // lista.addAll(p.listaErrores);
-            for (var a : ast.getInstrucciones()) {
-                if(a == null){
-                    continue;
-                }
-                var res = a.interpretar(ast, tabla);
-                if(res instanceof Errores){
-                    lista.add((Errores) res);
-                }
+         try {
+        String texto = jTextAreaEntrada.getText();
+        scanner s = new scanner(new BufferedReader(new StringReader(texto)));
+        Sintactico p = new Sintactico(s);
+        var resultado = p.parse();
+        var ast = new Arbol((LinkedList<Instruccion>) resultado.value);
+        var tabla = new TablaSimbolos();
+        tabla.setNombre("Global");
+        ast.setConsola("");
+        LinkedList<Errores> lista = new LinkedList<>();
+        // lista.addAll(s.listaErrores);
+        // lista.addAll(p.listaErrores);
+        for (var a : ast.getInstrucciones()) {
+            if (a == null) {
+                continue;
             }
-            jTextConsola.setText(ast.getConsola());
-            System.out.println(ast.getConsola());
-
-            for(var i:lista){
-                System.out.println(i);
+            var res = a.interpretar(ast, tabla);
+            if (res instanceof Errores) {
+                lista.add((Errores) res);
             }
-        } catch (Exception ex) {
-            System.out.println("Algo salio mal");
-
         }
+        jTextConsola.setText(ast.getConsola());
+        System.out.println(ast.getConsola());
+
+        // Mostrar errores si los hay
+        for (var i : lista) {
+            System.out.println(i);
+        }
+             SwingUtilities.invokeLater(() -> {
+                 JFrame frame = new JFrame("Figuras Graficadas");
+                 PanelDibujo panelDibujo = Principal.getInstance().getPanelDibujo();
+
+                 // Configurar la ventana
+                 frame.add(panelDibujo);
+                 frame.setSize(800, 800); // Ajusta el tamaño según sea necesario
+                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                 frame.setVisible(true);
+
+                 System.out.println("Graficando figuras...");
+                 System.out.println("Figuras graficadas.");
+             });
+    } catch (Exception ex) {
+        ex.printStackTrace(); // Mejor para ver el error real
+        System.out.println("Algo salió mal");
+    }
     }//GEN-LAST:event_btnCompilarActionPerformed
 
+    public PanelDibujo getPanelDibujo() {
+        return panelDibujo;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -157,10 +200,10 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCompilar;
     private javax.swing.JLabel jLabelEntrada;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaEntrada;
     private javax.swing.JTextArea jTextConsola;
+    private javax.swing.JPanel panelEntrada;
     // End of variables declaration//GEN-END:variables
 }
