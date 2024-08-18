@@ -8,33 +8,37 @@ package com.geometric.analisis;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int GRIS = 18;
+  public static final int GRIS = 22;
   public static final int LINEA = 11;
-  public static final int MENOS = 24;
-  public static final int MULTIPLICACION = 25;
-  public static final int ANARANJADO = 20;
+  public static final int MENOS = 28;
+  public static final int MULTIPLICACION = 29;
+  public static final int ANARANJADO = 24;
   public static final int DECIMAL = 4;
-  public static final int DIVISION = 26;
-  public static final int PAR_C = 22;
+  public static final int DIVISION = 30;
+  public static final int CURVA = 18;
+  public static final int ANIMAR = 19;
+  public static final int PAR_C = 26;
   public static final int CUADRADO = 8;
-  public static final int UMENOS = 27;
-  public static final int PAR_A = 21;
+  public static final int UMENOS = 31;
+  public static final int PAR_A = 25;
+  public static final int OBJETO = 16;
   public static final int VERDE = 15;
   public static final int ID = 2;
   public static final int ROJO = 13;
+  public static final int ROSADO = 20;
   public static final int GRAFICAR = 6;
-  public static final int ROSADO = 16;
   public static final int AMARILLO = 14;
   public static final int COMA = 5;
   public static final int EOF = 0;
-  public static final int CELESTE = 17;
+  public static final int CELESTE = 21;
   public static final int error = 1;
   public static final int POLIGONO = 9;
   public static final int CIRCULO = 7;
   public static final int AZUL = 12;
   public static final int ENTERO = 3;
-  public static final int NEGRO = 19;
-  public static final int MAS = 23;
+  public static final int NEGRO = 23;
+  public static final int ANTERIOR = 17;
+  public static final int MAS = 27;
   public static final int RECTANGULO = 10;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -53,6 +57,10 @@ public class sym {
   "ROJO",
   "AMARILLO",
   "VERDE",
+  "OBJETO",
+  "ANTERIOR",
+  "CURVA",
+  "ANIMAR",
   "ROSADO",
   "CELESTE",
   "GRIS",

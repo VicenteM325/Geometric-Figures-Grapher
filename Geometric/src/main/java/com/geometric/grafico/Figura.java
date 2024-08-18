@@ -8,4 +8,10 @@ import java.awt.Graphics;
  */
 public interface Figura {
     void dibujar(Graphics g);
+    void mover(int dx, int dy);
+    
+    int getX(); 
+    int getY(); 
+    void setX(int x); 
+    void setY(int y);
 }

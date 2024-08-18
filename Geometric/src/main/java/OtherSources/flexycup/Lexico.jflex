@@ -1,20 +1,22 @@
 package com.geometric.analisis;
 
 //importaciones
+
 import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import com.geometric.excepciones.Errores;
 
 %%
 
-
-//definicion de variables
+//Codigo usuario
 %{
-
+     public LinkedList<Errores> listaErrores = new LinkedList<>();
 %}
 
 %init{
     yyline = 1;
     yycolumn = 1;
-
+    listaErrores = new LinkedList<>();
 %init}
 
 %cup
@@ -52,6 +54,8 @@ ID=[a-zA-z][a-zA-Z0-9_]*
     ANARANJADO="anaranjado"
     
     //Instruccion
+    OBJETO = "objeto"
+    ANTERIOR="anterior"
     GRAFICAR = "graficar"
     CIRCULO = "circulo"
     CUADRADO = "cuadrado"
@@ -60,11 +64,13 @@ ID=[a-zA-z][a-zA-Z0-9_]*
     POLIGONO = "poligono"
 
      //Tipos de animacion
-     LINEAG = "linea"
      CURVA = "curva" 
 
 %%
 <YYINITIAL> {GRAFICAR} {return new Symbol(sym.GRAFICAR, yyline, yycolumn,yytext()); }
+<YYINITIAL> {CURVA} {return new Symbol(sym.CURVA, yyline, yycolumn,yytext()); }
+<YYINITIAL> {OBJETO} {return new Symbol(sym.OBJETO, yyline, yycolumn,yytext()); }
+<YYINITIAL> {ANTERIOR} {return new Symbol(sym.ANTERIOR, yyline, yycolumn,yytext()); }
 <YYINITIAL> {CIRCULO} {return new Symbol(sym.CIRCULO, yyline, yycolumn,yytext()); }
 <YYINITIAL> {CUADRADO} {return new Symbol(sym.CUADRADO, yyline, yycolumn,yytext()); }
 <YYINITIAL> {RECTANGULO} {return new Symbol(sym.RECTANGULO, yyline, yycolumn,yytext()); }
@@ -99,4 +105,6 @@ ID=[a-zA-z][a-zA-Z0-9_]*
 
 <YYINITIAL> . { /* Manejo de errores */ 
     System.err.println("Caracter no reconocido: " + yytext() + " en la línea " + yyline + " columna " + yycolumn);
+    listaErrores.add(new Errores("LEXICO","El caracter "+
+                yytext() + " no pertenece al lenguaje ", yyline, yycolumn));
 }

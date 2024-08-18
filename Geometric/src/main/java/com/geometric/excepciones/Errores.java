@@ -49,5 +49,10 @@ public class Errores {
     public void setColumna(int columna) {
         this.columna = columna;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("Error %s en la línea %d y columna %d: %s", tipo, linea, columna, desc);
+    }
 
 }

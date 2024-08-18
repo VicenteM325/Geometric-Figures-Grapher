@@ -75,4 +75,30 @@ public class Rectangulo implements Figura {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    @Override
+    public void mover(int dx, int dy) {
+        this.posX += dx;
+        this.posY += dy;
+    }
+
+    @Override
+    public int getX() {
+        return posX;
+    }
+
+    @Override
+    public int getY() {
+        return posY;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.posX = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.posY = y;
+    }
 }

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import com.geometric.abstracto.Instruccion;
 import com.geometric.simbolo.Tipo;
 import com.geometric.simbolo.TipoDato;
+import com.geometric.excepciones.Errores;
 
 // Instrucciones
 import com.geometric.instrucciones.*;
@@ -20,14 +21,23 @@ parser code
 {:
     scanner s;
     Sintactico(scanner s) {this.s = s;}
+    public LinkedList<Errores> listaErrores = new LinkedList<>();
 
     public void syntax_error(Symbol s){
+    listaErrores.add(new Errores("SINTACTICO RECUPERABLE",
+                        "No se esperaba el componente "+s.value,
+                        s.left,
+                        s.right));
         System.out.println("Error sintáctico en la linea " + 
         (s.left) + " y columna " + (s.right) + 
         ", No se esperaba el componente: "  + (s.value));
     }
 
     public void unrecovered_syntax_error (Symbol s){
+    listaErrores.add(new Errores("SINTACTICO NO RECUPERABLE",
+                        "No se esperaba el componente "+s.value,
+                        s.left,
+                        s.right));
         System.out.println("Error sintáctico no recuperable en la línea "  + 
         (s.left) + " y columna " + (s.right) +
         ", No se esperaba el componente: " +(s.value));
@@ -42,7 +52,8 @@ action code
 
 //Terminales
 terminal String ID, ENTERO, DECIMAL,COMA;
-terminal GRAFICAR, CIRCULO, CUADRADO, POLIGONO, RECTANGULO,LINEA, AZUL, ROJO, AMARILLO, VERDE;
+terminal GRAFICAR, CIRCULO, CUADRADO, POLIGONO, RECTANGULO,LINEA, AZUL, ROJO, AMARILLO, VERDE, OBJETO,ANTERIOR;
+terminal CURVA, ANIMAR;
 terminal    ROSADO,CELESTE,GRIS,NEGRO, ANARANJADO;
 terminal PAR_A, PAR_C, MAS, MENOS, MULTIPLICACION, DIVISION, UMENOS;
 
@@ -51,7 +62,7 @@ nonterminal LinkedList<Instruccion> INICIO, INSTRUCCIONES;
 nonterminal Instruccion INSTRUCCION;
 nonterminal Instruccion EXPRESION;
 nonterminal Instruccion POSICION;
-nonterminal String COLOR;
+nonterminal String COLOR, TIPOANIMACION;
 
 precedence left MAS,MENOS;
 precedence left MULTIPLICACION,DIVISION;
@@ -71,6 +82,7 @@ INSTRUCCION ::= GRAFICAR CIRCULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c CO
                                   | GRAFICAR RECTANGULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C  {: RESULT = new GraficarRectangulo(a, b, c, d, e, f, aleft, aright); :}
                                   | GRAFICAR LINEA PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C                   {: RESULT = new GraficarLinea(a, b, c, d, e, f, aleft, aright); :}
                                   | GRAFICAR POLIGONO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA EXPRESION:f COMA COLOR:g PAR_C  {: RESULT = new GraficarPoligono(a, b, c, d, e, f, g, aleft, aright); :}
+                                  | ANIMAR OBJETO ANTERIOR PAR_A TIPOANIMACION:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d PAR_C                                            {: RESULT = new AnimarFigura(a, b, c, d, aleft, aright); :}
 ;
 
 EXPRESION ::= MENOS EXPRESION:a                                                             {:      RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright );     :}%prec UMENOS
@@ -81,6 +93,10 @@ EXPRESION ::= MENOS EXPRESION:a                                                 
                             |  ENTERO:a                                                                                     {:      RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright );     :}
                             |  DECIMAL:a                                                                                    {:      RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright );     :}
                             | PAR_A EXPRESION:a PAR_C                                                   {: RESULT = a; :}
+;
+
+TIPOANIMACION::=              LINEA:a               {: RESULT = "linea";   :}
+                                                   |  CURVA:a                 {: RESULT = "curva";  :}
 ;
 
 COLOR ::=                                   AZUL:a               {: RESULT = "azul"; :}
