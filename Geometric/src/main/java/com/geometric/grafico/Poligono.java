@@ -1,6 +1,7 @@
 package com.geometric.grafico;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
@@ -29,12 +30,26 @@ public class Poligono implements Figura {
         g.setColor(color);
         Polygon poligono = new Polygon();
         double angleStep = 2 * Math.PI / lados;
+        int sumX = 0;
+        int sumY = 0;
+    
         for (int i = 0; i < lados; i++) {
             int x = posX + (int) (ancho / 2 * Math.cos(i * angleStep));
             int y = posY + (int) (alto / 2 * Math.sin(i * angleStep));
             poligono.addPoint(x, y);
+            
+            sumX += x;
+            sumY += y;
         }
         g.fillPolygon(poligono);
+
+        int centerX = sumX / lados;
+        int centerY = sumY / lados;
+
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(nombre);
+        g.drawString(nombre, centerX - textWidth / 2, centerY - 5);
     }
 
     // Getters y Setters

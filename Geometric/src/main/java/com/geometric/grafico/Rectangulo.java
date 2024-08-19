@@ -1,6 +1,7 @@
 package com.geometric.grafico;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class Rectangulo implements Figura {
@@ -25,6 +26,11 @@ public class Rectangulo implements Figura {
     public void dibujar(Graphics g) {
         g.setColor(color);
         g.fillRect(posX, posY, ancho, alto);
+        
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(nombre);
+        g.drawString(nombre, posX + (ancho / 2) - (textWidth / 2), posY - 5);
     }
 
     // Getters y Setters

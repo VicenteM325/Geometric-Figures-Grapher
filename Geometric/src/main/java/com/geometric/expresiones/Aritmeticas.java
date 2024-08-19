@@ -2,6 +2,7 @@ package com.geometric.expresiones;
 
 import com.geometric.abstracto.Instruccion;
 import com.geometric.excepciones.Errores;
+import com.geometric.grafico.Principal;
 import com.geometric.simbolo.*;
 
 /**
@@ -49,7 +50,7 @@ public class Aritmeticas extends Instruccion {
             }
         }
 
-        return switch (operacion) {
+        Object resultado = switch (operacion) {
             case SUMA -> this.suma(opIzq, opDer);
             case RESTA -> this.resta(opIzq, opDer);
             case MULTIPLICACION -> this.multiplicacion(opIzq, opDer);
@@ -57,6 +58,35 @@ public class Aritmeticas extends Instruccion {
             case NEGACION -> this.negacion(Unico);
             default -> new Errores("SEMANTICO", "Operador invalido", this.linea, this.columna);
         };
+
+        String expresionCompleta;
+        String simboloOperacion = obtenerSimbolo(operacion);
+
+        if (this.operandoUnico != null) {
+            expresionCompleta = simboloOperacion + " " + Unico.toString();
+        } else {
+            expresionCompleta = opIzq.toString() + " " + simboloOperacion + " " + opDer.toString();
+        }
+
+      
+
+        if (resultado instanceof Errores) {
+            Principal.getInstance().getPanelReportes().agregarOperacion(
+                    operacion.toString(),
+                    this.linea,
+                    this.columna,
+                    expresionCompleta
+            );
+        } else {
+            Principal.getInstance().getPanelReportes().agregarOperacion(
+                    operacion.toString(),
+                    this.linea,
+                    this.columna,
+                    expresionCompleta
+            );
+        }
+        return resultado;
+        
     }
 
     public Object suma(Object op1, Object op2) {
@@ -72,7 +102,7 @@ public class Aritmeticas extends Instruccion {
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 + (int)(double) op2;
+                        return (int) op1 + (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Suma erronea", this.linea, this.columna);
@@ -83,11 +113,11 @@ public class Aritmeticas extends Instruccion {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 + (int) op2;
+                        return (double) op1 + (int) op2;
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 + (int)(double) op2;
+                        return (double) op1 + (double) op2;
                     }
   
                     default -> {
@@ -114,7 +144,7 @@ public class Aritmeticas extends Instruccion {
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (double) (int) op1 - (int)(double) op2;
+                        return (int) op1 - (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Resta erronea", this.linea, this.columna);
@@ -125,11 +155,11 @@ public class Aritmeticas extends Instruccion {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 - (int) op2;
+                        return (double) op1 - (int) op2;
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 - (int)(double) op2;
+                        return (double) op1 - (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Resta erronea", this.linea, this.columna);
@@ -158,7 +188,7 @@ public class Aritmeticas extends Instruccion {
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 * (int)(double) op2;
+                        return (int) op1 * (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Multiplicación erronea", this.linea, this.columna);
@@ -169,11 +199,11 @@ public class Aritmeticas extends Instruccion {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 * (int) op2;
+                        return (double) op1 * (int) op2;
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 * (double) op2;
+                        return (double) op1 * (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "Multiplicación erronea", this.linea, this.columna);
@@ -202,11 +232,11 @@ public class Aritmeticas extends Instruccion {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int)((int) op1 / (int) op2);
+                        return (double)((int) op1 / (int) op2);
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int)(int) op1 / (int)(double) op2;
+                        return (double)(int) op1 / (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "División erronea", this.linea, this.columna);
@@ -217,11 +247,11 @@ public class Aritmeticas extends Instruccion {
                 switch (tipo2) {
                     case ENTERO -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 / (int) op2;
+                        return (double) op1 / (int) op2;
                     }
                     case DECIMAL -> {
                         this.tipo.setTipo(TipoDato.DECIMAL);
-                        return (int) op1 / (int)(double) op2;
+                        return (double) op1 / (double) op2;
                     }
                     default -> {
                         return new Errores("SEMANTICO", "División erronea", this.linea, this.columna);
@@ -246,11 +276,21 @@ public class Aritmeticas extends Instruccion {
             }
             case DECIMAL -> {
                 this.tipo.setTipo(TipoDato.DECIMAL);
-                return (int) op1 * -1;
+                return (double) op1 * -1;
             }
             default -> {
                 return new Errores("SEMANTICO", "Negación erronea", this.linea, this.columna);
             }
         }
     }
+    
+    private String obtenerSimbolo(OperadoresAritmeticos operacion) {
+    return switch (operacion) {
+        case SUMA -> "+";
+        case RESTA -> "-";
+        case MULTIPLICACION -> "*";
+        case DIVISION -> "/";
+        case NEGACION -> "-";
+    };
+}
 }

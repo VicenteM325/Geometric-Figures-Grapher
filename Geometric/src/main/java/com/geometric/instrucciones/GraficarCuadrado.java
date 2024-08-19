@@ -39,14 +39,17 @@ public class GraficarCuadrado extends Instruccion {
         Object valorPosX = posX.interpretar(arbol, tabla);
         Object valorPosY = posY.interpretar(arbol, tabla);
         Object valorLado = tamano.interpretar(arbol, tabla);
-
-        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorLado instanceof Integer)) {
-            return new Errores("SEMANTICO", "Los valores de posición y lado deben ser enteros", this.linea, this.columna);
+        
+        if (!(valorPosX instanceof Number) || !(valorPosY instanceof Number)
+                || !(valorLado instanceof Number)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lado, y alto deben ser numéricos", this.linea, this.columna);
         }
 
-        int x = (int) valorPosX;
-        int y = (int) valorPosY;
-        int l = (int) valorLado;
+        int x = ((Number) valorPosX).intValue();
+        int y = ((Number) valorPosY).intValue();
+        int l = ((Number) valorLado).intValue();
+
+
         Color colorFigura;
         System.out.println("Graficando figura: ");
         System.out.println("Nombre: " + nombre);
@@ -61,6 +64,7 @@ public class GraficarCuadrado extends Instruccion {
         
         Principal principal = Principal.getInstance();
         principal.getPanelDibujo().agregarFigura(new Cuadrado(nombre, x, y, l, colorFigura));
+        principal.agregarFiguraAlReporte("Cuadrado", color);
 
         return null;
     }

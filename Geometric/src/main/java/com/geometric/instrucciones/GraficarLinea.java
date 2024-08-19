@@ -10,7 +10,6 @@ import com.geometric.simbolo.TablaSimbolos;
 import com.geometric.simbolo.Tipo;
 import com.geometric.simbolo.TipoDato;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -52,16 +51,21 @@ public class GraficarLinea extends Instruccion {
 
     Object valorY2 = posY2.interpretar(arbol, tabla);
     if (valorY2 instanceof Errores) return valorY2;
+    
+    if (!(valorX1 instanceof Number) || !(valorY1 instanceof Number)
+                || !(valorX2 instanceof Number) || !(valorY2 instanceof Number)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser numéricos", this.linea, this.columna);
+        }
+
+        int x1 = ((Number) valorX1).intValue();
+        int y1 = ((Number) valorY1).intValue();
+        int x2 = ((Number) valorX2).intValue();
+        int y2 = ((Number) valorY2).intValue();
 
     // Valida que todas las coordenadas sean enteros
-    if (!(valorX1 instanceof Integer) || !(valorY1 instanceof Integer) || !(valorX2 instanceof Integer) || !(valorY2 instanceof Integer)) {
-        return new Errores("SEMANTICO", "Las coordenadas de la línea deben ser enteros", this.linea, this.columna);
-    }
-
-    int x1 = (int) valorX1;
-    int y1 = (int) valorY1;
-    int x2 = (int) valorX2;
-    int y2 = (int) valorY2;
+   // if (!(valorX1 instanceof Integer) || !(valorY1 instanceof Integer) || !(valorX2 instanceof Integer) || !(valorY2 instanceof Integer)) {
+    //    return new Errores("SEMANTICO", "Las coordenadas de la línea deben ser enteros", this.linea, this.columna);
+    //}
 
         Color colorFigura;
         System.out.println("Graficando figura: ");
@@ -76,6 +80,7 @@ public class GraficarLinea extends Instruccion {
 
     Principal principal = Principal.getInstance();
     principal.getPanelDibujo().agregarFigura(new Linea(nombre, x1, y1, x2, y2, colorFigura));
+    principal.agregarFiguraAlReporte("Línea", color);
 
     return null;
 }

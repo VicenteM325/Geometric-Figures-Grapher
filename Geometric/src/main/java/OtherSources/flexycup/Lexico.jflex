@@ -64,10 +64,12 @@ ID=[a-zA-z][a-zA-Z0-9_]*
     POLIGONO = "poligono"
 
      //Tipos de animacion
+     ANIMAR = "animar"
      CURVA = "curva" 
 
 %%
 <YYINITIAL> {GRAFICAR} {return new Symbol(sym.GRAFICAR, yyline, yycolumn,yytext()); }
+<YYINITIAL> {ANIMAR} {return new Symbol(sym.ANIMAR, yyline, yycolumn,yytext()); }
 <YYINITIAL> {CURVA} {return new Symbol(sym.CURVA, yyline, yycolumn,yytext()); }
 <YYINITIAL> {OBJETO} {return new Symbol(sym.OBJETO, yyline, yycolumn,yytext()); }
 <YYINITIAL> {ANTERIOR} {return new Symbol(sym.ANTERIOR, yyline, yycolumn,yytext()); }

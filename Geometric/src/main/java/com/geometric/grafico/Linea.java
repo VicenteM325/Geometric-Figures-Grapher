@@ -1,6 +1,7 @@
 package com.geometric.grafico;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class Linea implements Figura {
@@ -25,6 +26,14 @@ public class Linea implements Figura {
     public void dibujar(Graphics g) {
         g.setColor(color);
         g.drawLine(x1, y1, x2, y2);
+        
+        int midX = (x1 + x2) / 2;
+        int midY = (y1 + y2) / 2;
+
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(nombre);
+        g.drawString(nombre, midX - textWidth / 2, midY - 5);
     }
 
     // Getters y Setters

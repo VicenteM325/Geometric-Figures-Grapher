@@ -1,6 +1,7 @@
 package com.geometric.grafico;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class Cuadrado implements Figura {
@@ -23,6 +24,11 @@ public class Cuadrado implements Figura {
     public void dibujar(Graphics g) {
         g.setColor(color);
         g.fillRect(posX, posY, lado, lado);
+        
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(nombre);
+        g.drawString(nombre, posX + (lado / 2) - (textWidth / 2), posY - 5);
     }
 
     // Getters y Setters

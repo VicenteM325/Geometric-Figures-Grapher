@@ -2,6 +2,7 @@ package com.geometric.grafico;
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.FontMetrics;
 
 /**
  *
@@ -64,6 +65,11 @@ public class Circulo implements Figura {
     public void dibujar(Graphics g) {
         g.setColor(color);
         g.fillOval(x - radio, y - radio, 2 * radio, 2 * radio);
+        
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(nombre);
+        g.drawString(nombre, x - textWidth / 2, y - radio - 5);
     }
     
      @Override

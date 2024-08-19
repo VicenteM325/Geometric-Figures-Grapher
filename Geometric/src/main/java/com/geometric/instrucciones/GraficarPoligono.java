@@ -47,16 +47,18 @@ public class GraficarPoligono extends Instruccion {
         Object valorAncho = ancho.interpretar(arbol, tabla);
         Object valorAlto = alto.interpretar(arbol, tabla);
 
-        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorLados instanceof Integer) || !(valorAncho instanceof Integer) || !(valorAlto instanceof Integer)) {
-            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser enteros", this.linea, this.columna);
+        if (!(valorPosX instanceof Number) || !(valorPosY instanceof Number)
+                || !(valorLados instanceof Number) || !(valorAncho instanceof Number)
+                || !(valorAlto instanceof Number)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser numéricos", this.linea, this.columna);
         }
 
-        int x = (int) valorPosX;
-        int y = (int) valorPosY;
-        int n = (int) valorLados;
-        int w = (int) valorAncho;
-        int h = (int) valorAlto;
-  
+        int x = ((Number) valorPosX).intValue();
+        int y = ((Number) valorPosY).intValue();
+        int n = ((Number) valorLados).intValue();
+        int w = ((Number) valorAncho).intValue();
+        int h = ((Number) valorAlto).intValue();
+
         System.out.println("Graficando figura: ");
         System.out.println("Nombre: " + nombre);
         System.out.println("Posición: (" + x + ", " + y + ")");
@@ -74,7 +76,7 @@ public class GraficarPoligono extends Instruccion {
 
         Principal principal = Principal.getInstance();
         principal.getPanelDibujo().agregarFigura(new Poligono(nombre, x, y, n, w, h, colorFigura));
-
+        principal.agregarFiguraAlReporte("Polígono", color);
         return null;
     }
 }

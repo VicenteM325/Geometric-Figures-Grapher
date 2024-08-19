@@ -42,15 +42,17 @@ public class GraficarRectangulo extends Instruccion {
         Object valorPosY = posY.interpretar(arbol, tabla);
         Object valorAncho = ancho.interpretar(arbol, tabla);
         Object valorAlto = alto.interpretar(arbol, tabla);
-
-        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorAncho instanceof Integer) || !(valorAlto instanceof Integer)) {
-            return new Errores("SEMANTICO", "Los valores de posición, ancho y alto deben ser enteros", this.linea, this.columna);
+        
+        if (!(valorPosX instanceof Number) || !(valorPosY instanceof Number)
+                || !(valorAncho instanceof Number) || !(valorAlto instanceof Number)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser numéricos", this.linea, this.columna);
         }
 
-        int x = (int) valorPosX;
-        int y = (int) valorPosY;
-        int w = (int) valorAncho;
-        int h = (int) valorAlto;
+
+        int x = ((Number) valorPosX).intValue();
+        int y = ((Number) valorPosY).intValue();
+        int w = ((Number) valorAncho).intValue();
+        int h = ((Number) valorAlto).intValue();
         
         System.out.println("Graficando figura: ");
         System.out.println("Nombre: " + nombre);
@@ -68,7 +70,7 @@ public class GraficarRectangulo extends Instruccion {
 
         Principal principal = Principal.getInstance();
         principal.getPanelDibujo().agregarFigura(new Rectangulo(nombre, x, y, w, h, colorFigura));
-
+        principal.agregarFiguraAlReporte("Rectangulo", color);
         return null;
     }
 }

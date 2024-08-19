@@ -823,7 +823,7 @@ public class scanner implements java_cup.runtime.Scanner {
           // fall through
           case 46: break;
           case 17:
-            { return new Symbol(sym.LINEAG, yyline, yycolumn,yytext());
+            { return new Symbol(sym.LINEA, yyline, yycolumn,yytext());
             }
           // fall through
           case 47: break;

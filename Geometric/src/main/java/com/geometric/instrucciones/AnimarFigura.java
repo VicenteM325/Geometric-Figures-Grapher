@@ -41,19 +41,22 @@ public class AnimarFigura extends Instruccion {
         if (valorDestinoX instanceof Errores) return valorDestinoX;
         if (valorDestinoY instanceof Errores) return valorDestinoY;
         if (valorOrden instanceof Errores) return valorOrden;
-
-        if (!(valorDestinoX instanceof Integer) || !(valorDestinoY instanceof Integer) || !(valorOrden instanceof Integer)) {
-            return new Errores("SEMANTICO", "Las expresiones deben ser enteros", this.linea, this.columna);
+        
+        if (!(valorDestinoX instanceof Number) || !(valorDestinoY instanceof Number)
+                || !(valorOrden instanceof Number)) {
+            return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser numéricos", this.linea, this.columna);
         }
 
-        int destinoX = (Integer) valorDestinoX;
-        int destinoY = (Integer) valorDestinoY;
-        int orden = (Integer) valorOrden;
+        int destinoX = ((Number) valorDestinoX).intValue();
+        int destinoY = ((Number) valorDestinoY).intValue();
+        int orden = ((Number) valorOrden).intValue();
+
 
         // Obtener la última figura agregada
         Figura figura = Principal.getInstance().getUltimaFigura();
         if (figura == null) {
             System.out.println("No hay figura para animar.");
+            System.out.println("Última figura agregada: " + Principal.getInstance().getUltimaFigura());
             return null;
         }
 
