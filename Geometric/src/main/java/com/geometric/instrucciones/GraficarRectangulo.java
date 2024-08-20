@@ -68,8 +68,10 @@ public class GraficarRectangulo extends Instruccion {
             return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
         }
 
+        Rectangulo rectangulo = new Rectangulo(nombre, x, y, w, h, colorFigura);
         Principal principal = Principal.getInstance();
-        principal.getPanelDibujo().agregarFigura(new Rectangulo(nombre, x, y, w, h, colorFigura));
+        principal.getPanelDibujo().agregarFigura(rectangulo);
+        principal.agregarFigura(rectangulo);
         principal.agregarFiguraAlReporte("Rectangulo", color);
         return null;
     }

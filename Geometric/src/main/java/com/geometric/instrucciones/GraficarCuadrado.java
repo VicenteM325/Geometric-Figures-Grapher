@@ -62,8 +62,11 @@ public class GraficarCuadrado extends Instruccion {
             return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
         }
         
+        Cuadrado cuadrado = new Cuadrado(nombre, x, y, l, colorFigura);
+        
         Principal principal = Principal.getInstance();
-        principal.getPanelDibujo().agregarFigura(new Cuadrado(nombre, x, y, l, colorFigura));
+        principal.getPanelDibujo().agregarFigura(cuadrado);
+        principal.agregarFigura(cuadrado);
         principal.agregarFiguraAlReporte("Cuadrado", color);
 
         return null;

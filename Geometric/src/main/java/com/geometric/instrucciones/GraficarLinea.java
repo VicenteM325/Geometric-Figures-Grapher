@@ -62,10 +62,6 @@ public class GraficarLinea extends Instruccion {
         int x2 = ((Number) valorX2).intValue();
         int y2 = ((Number) valorY2).intValue();
 
-    // Valida que todas las coordenadas sean enteros
-   // if (!(valorX1 instanceof Integer) || !(valorY1 instanceof Integer) || !(valorX2 instanceof Integer) || !(valorY2 instanceof Integer)) {
-    //    return new Errores("SEMANTICO", "Las coordenadas de la línea deben ser enteros", this.linea, this.columna);
-    //}
 
         Color colorFigura;
         System.out.println("Graficando figura: ");
@@ -78,8 +74,11 @@ public class GraficarLinea extends Instruccion {
             return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
         }
 
+    Linea linea = new Linea(nombre, x1, y1, x2, y2, colorFigura);
+        
     Principal principal = Principal.getInstance();
-    principal.getPanelDibujo().agregarFigura(new Linea(nombre, x1, y1, x2, y2, colorFigura));
+    principal.getPanelDibujo().agregarFigura(linea);
+    principal.agregarFigura(linea);
     principal.agregarFiguraAlReporte("Línea", color);
 
     return null;

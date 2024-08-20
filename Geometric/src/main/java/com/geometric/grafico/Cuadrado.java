@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+
+
 public class Cuadrado implements Figura {
 
     private String nombre;

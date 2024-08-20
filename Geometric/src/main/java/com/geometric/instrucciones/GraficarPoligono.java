@@ -10,7 +10,6 @@ import com.geometric.simbolo.TablaSimbolos;
 import com.geometric.simbolo.Tipo;
 import com.geometric.simbolo.TipoDato;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -74,8 +73,10 @@ public class GraficarPoligono extends Instruccion {
             return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
         }
 
+        Poligono poligono = new Poligono(nombre, x, y, n, w, h, colorFigura);
         Principal principal = Principal.getInstance();
-        principal.getPanelDibujo().agregarFigura(new Poligono(nombre, x, y, n, w, h, colorFigura));
+        principal.getPanelDibujo().agregarFigura(poligono);
+        principal.agregarFigura(poligono);
         principal.agregarFiguraAlReporte("Polígono", color);
         return null;
     }

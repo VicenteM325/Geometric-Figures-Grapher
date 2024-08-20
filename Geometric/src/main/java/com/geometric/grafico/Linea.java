@@ -22,6 +22,8 @@ public class Linea implements Figura {
         this.color = color;
     }
 
+   
+
     @Override
     public void dibujar(Graphics g) {
         g.setColor(color);
@@ -36,7 +38,46 @@ public class Linea implements Figura {
         g.drawString(nombre, midX - textWidth / 2, midY - 5);
     }
 
-    // Getters y Setters
+    @Override
+    public void mover(int dx, int dy) {
+        // Mueve ambos puntos finales de la línea
+        this.x1 += dx;
+        this.y1 += dy;
+        this.x2 += dx;
+        this.y2 += dy;
+    }
+
+    @Override
+    public int getX() {
+        // Retorna la coordenada x del centro de la línea
+        return (x1 + x2) / 2;
+    }
+
+    @Override
+    public int getY() {
+        // Retorna la coordenada y del centro de la línea
+        return (y1 + y2) / 2;
+    }
+
+    @Override
+    public void setX(int x) {
+        // Ajusta la posición central de la línea
+        int centerX = getX();
+        int deltaX = x - centerX;
+        this.x1 += deltaX;
+        this.x2 += deltaX;
+    }
+
+    @Override
+    public void setY(int y) {
+        // Ajusta la posición central de la línea
+        int centerY = getY();
+        int deltaY = y - centerY;
+        this.y1 += deltaY;
+        this.y2 += deltaY;
+    }
+
+    // Getters y Setters adicionales
     public String getNombre() {
         return nombre;
     }
@@ -83,31 +124,6 @@ public class Linea implements Figura {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    @Override
-    public void mover(int dx, int dy) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int getX() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int getY() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setX(int x) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void setY(int y) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

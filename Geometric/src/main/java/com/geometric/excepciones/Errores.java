@@ -51,8 +51,10 @@ public class Errores {
     }
     
     @Override
-    public String toString() {
+    public String toString() {  
         return String.format("Error %s en la línea %d y columna %d: %s", tipo, linea, columna, desc);
     }
+    
+          
 
 }

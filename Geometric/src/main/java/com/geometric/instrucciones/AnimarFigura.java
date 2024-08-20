@@ -2,13 +2,13 @@ package com.geometric.instrucciones;
 
 import com.geometric.abstracto.Instruccion;
 import com.geometric.excepciones.Errores;
+import com.geometric.grafico.Animador;
 import com.geometric.grafico.Figura;
 import com.geometric.grafico.Principal;
 import com.geometric.simbolo.Arbol;
 import com.geometric.simbolo.TablaSimbolos;
 import com.geometric.simbolo.Tipo;
 import com.geometric.simbolo.TipoDato;
-import javax.swing.Timer;
 
 /**
  *
@@ -52,57 +52,18 @@ public class AnimarFigura extends Instruccion {
         int orden = ((Number) valorOrden).intValue();
 
 
-        // Obtener la última figura agregada
-        Figura figura = Principal.getInstance().getUltimaFigura();
+       Figura figura = Principal.getInstance().getUltimaFigura();
         if (figura == null) {
             System.out.println("No hay figura para animar.");
-            System.out.println("Última figura agregada: " + Principal.getInstance().getUltimaFigura());
             return null;
         }
 
-        // Implementar la lógica para animar la figura
-        switch (tipoAnimacion.toLowerCase()) {
-            case "linea":
-                animarLinea(figura, destinoX, destinoY, orden);
-                break;
-            case "curva":
-                animarCurva(figura, destinoX, destinoY, orden);
-                break;
-            default:
-                System.out.println("Tipo de animación no reconocido: " + tipoAnimacion);
-                return null;
-        }
+        Animador animador = Animador.getInstance();
+        Principal principal = Principal.getInstance();
+        animador.guardarAnimacion(figura, tipoAnimacion, destinoX, destinoY, orden);
+        principal.agregarAnimacionAlReporte(tipoAnimacion);
 
         return null;
     }
-
-    private void animarLinea(Figura figura, int destinoX, int destinoY, int orden) {
-        Timer timer = new Timer(orden, e -> {
-            int dx = Integer.compare(destinoX, figura.getX());
-            int dy = Integer.compare(destinoY, figura.getY());
-
-            if (dx == 0 && dy == 0) {
-                ((Timer) e.getSource()).stop(); // Detener la animación
-            } else {
-                figura.mover(dx, dy);
-                Principal.getInstance().getPanelDibujo().repaint();
-            }
-        });
-        timer.start();
-    }
-
-    private void animarCurva(Figura figura, int destinoX, int destinoY, int orden) {
-        Timer timer = new Timer(orden, e -> {
-            int dx = Integer.compare(destinoX, figura.getX());
-            int dy = Integer.compare(destinoY, figura.getY());
-
-            if (dx == 0 && dy == 0) {
-                ((Timer) e.getSource()).stop(); // Detener la animación
-            } else {
-                figura.mover(dx * 2, dy * 2); // Ajustar el movimiento para simular una curva
-                Principal.getInstance().getPanelDibujo().repaint();
-            }
-        });
-        timer.start();
-    }
+ 
 }

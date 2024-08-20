@@ -46,9 +46,6 @@ import java.awt.Color;
         Object valorRadio = radio.interpretar(arbol, tabla);
         if (valorRadio instanceof Errores) return valorRadio;
 
-//        if (!(valorPosX instanceof Integer) || !(valorPosY instanceof Integer) || !(valorRadio instanceof Integer)) {
-//            return new Errores("SEMANTICO", "Los valores de posición y radio deben ser enteros", this.linea, this.columna);
-//        }
         if (!(valorPosX instanceof Number) || !(valorPosY instanceof Number)
                 || !(valorRadio instanceof Number)) {
             return new Errores("SEMANTICO", "Los valores de posición, lados, ancho y alto deben ser numéricos", this.linea, this.columna);
@@ -71,9 +68,12 @@ import java.awt.Color;
         } catch (IllegalArgumentException e) {
             return new Errores("SEMANTICO", e.getMessage(), this.linea, this.columna);
         }
+        
+        Circulo circulo = new Circulo(nombre,x,y,r,colorFigura);
 
         Principal principal = Principal.getInstance();
-        principal.getPanelDibujo().agregarFigura(new Circulo(nombre, x, y, r, colorFigura));
+        principal.getPanelDibujo().agregarFigura(circulo);
+        principal.agregarFigura(circulo);
         principal.agregarFiguraAlReporte("Círculo", color);
 
         return null;

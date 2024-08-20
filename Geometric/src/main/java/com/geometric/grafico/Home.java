@@ -7,10 +7,13 @@ import com.geometric.analisis.CargaArchivo;
 import com.geometric.analisis.Sintactico;
 import com.geometric.analisis.scanner;
 import com.geometric.excepciones.Errores;
+import com.geometric.grafico.Reportes.ErroresT;
 import com.geometric.grafico.Reportes.Operaciones;
+
 import com.geometric.simbolo.Arbol;
 import com.geometric.simbolo.TablaSimbolos;
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -73,23 +77,27 @@ public class Home extends javax.swing.JPanel {
         jPDF = new javax.swing.JPanel();
         labelPDF = new javax.swing.JLabel();
 
+        jPanel1.setBackground(new java.awt.Color(20, 34, 41));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextAreaEntrada.setBackground(new java.awt.Color(158, 189, 203));
         jTextAreaEntrada.setColumns(20);
-        jTextAreaEntrada.setFont(new java.awt.Font("sansserif", 0, 16)); // NOI18N
+        jTextAreaEntrada.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jTextAreaEntrada.setForeground(new java.awt.Color(0, 0, 0));
         jTextAreaEntrada.setRows(5);
         jScrollPane1.setViewportView(jTextAreaEntrada);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 750, 310));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 720, 310));
 
+        jTextConsola.setBackground(new java.awt.Color(191, 215, 224));
         jTextConsola.setColumns(20);
         jTextConsola.setFont(new java.awt.Font("sansserif", 0, 16)); // NOI18N
         jTextConsola.setRows(5);
         jScrollPane2.setViewportView(jTextConsola);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 1030, 170));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 1000, 170));
 
-        jCompilar.setBackground(new java.awt.Color(50, 81, 143));
+        jCompilar.setBackground(new java.awt.Color(149, 180, 199));
         jCompilar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCompilarMouseClicked(evt);
@@ -103,8 +111,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelCompilar.setBackground(new java.awt.Color(255, 255, 255));
-        labelCompilar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelCompilar.setForeground(new java.awt.Color(255, 255, 255));
+        labelCompilar.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelCompilar.setForeground(new java.awt.Color(20, 34, 41));
         labelCompilar.setText("COMPILAR");
 
         javax.swing.GroupLayout jCompilarLayout = new javax.swing.GroupLayout(jCompilar);
@@ -112,9 +120,9 @@ public class Home extends javax.swing.JPanel {
         jCompilarLayout.setHorizontalGroup(
             jCompilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jCompilarLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(64, 64, 64)
                 .addComponent(labelCompilar)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jCompilarLayout.setVerticalGroup(
             jCompilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +132,9 @@ public class Home extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(jCompilar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, 230, 50));
+        jPanel1.add(jCompilar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 230, 50));
 
-        jLimpiar.setBackground(new java.awt.Color(50, 81, 143));
+        jLimpiar.setBackground(new java.awt.Color(149, 180, 199));
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseClicked(evt);
@@ -140,8 +148,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelLimpiar.setBackground(new java.awt.Color(255, 255, 255));
-        labelLimpiar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        labelLimpiar.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelLimpiar.setForeground(new java.awt.Color(20, 34, 41));
         labelLimpiar.setText("LIMPIAR");
 
         javax.swing.GroupLayout jLimpiarLayout = new javax.swing.GroupLayout(jLimpiar);
@@ -149,9 +157,9 @@ public class Home extends javax.swing.JPanel {
         jLimpiarLayout.setHorizontalGroup(
             jLimpiarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLimpiarLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(76, 76, 76)
                 .addComponent(labelLimpiar)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jLimpiarLayout.setVerticalGroup(
             jLimpiarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,9 +169,9 @@ public class Home extends javax.swing.JPanel {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 150, 230, -1));
+        jPanel1.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 140, 230, -1));
 
-        jAnimar.setBackground(new java.awt.Color(50, 81, 143));
+        jAnimar.setBackground(new java.awt.Color(149, 180, 199));
         jAnimar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jAnimarMouseClicked(evt);
@@ -177,8 +185,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelAnimar.setBackground(new java.awt.Color(255, 255, 255));
-        labelAnimar.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelAnimar.setForeground(new java.awt.Color(255, 255, 255));
+        labelAnimar.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelAnimar.setForeground(new java.awt.Color(20, 34, 41));
         labelAnimar.setText("ANIMAR");
 
         javax.swing.GroupLayout jAnimarLayout = new javax.swing.GroupLayout(jAnimar);
@@ -186,9 +194,9 @@ public class Home extends javax.swing.JPanel {
         jAnimarLayout.setHorizontalGroup(
             jAnimarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAnimarLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(76, 76, 76)
                 .addComponent(labelAnimar)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jAnimarLayout.setVerticalGroup(
             jAnimarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,17 +206,21 @@ public class Home extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(jAnimar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 200, 230, -1));
+        jPanel1.add(jAnimar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 230, -1));
 
+        jLabel1.setBackground(new java.awt.Color(231, 232, 231));
         jLabel1.setFont(new java.awt.Font("FreeSans", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(231, 232, 231));
         jLabel1.setText("OUTPUT");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
+        jLabel2.setBackground(new java.awt.Color(231, 232, 231));
         jLabel2.setFont(new java.awt.Font("Cantarell", 0, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(231, 232, 231));
         jLabel2.setText("ENTRADA");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 90, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 90, -1));
 
-        jCargarArchivo.setBackground(new java.awt.Color(50, 81, 143));
+        jCargarArchivo.setBackground(new java.awt.Color(149, 180, 199));
         jCargarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCargarArchivoMouseClicked(evt);
@@ -222,8 +234,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelCargarArchivo.setBackground(new java.awt.Color(255, 255, 255));
-        labelCargarArchivo.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelCargarArchivo.setForeground(new java.awt.Color(255, 255, 255));
+        labelCargarArchivo.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelCargarArchivo.setForeground(new java.awt.Color(20, 34, 41));
         labelCargarArchivo.setText("ARCHIVO");
 
         javax.swing.GroupLayout jCargarArchivoLayout = new javax.swing.GroupLayout(jCargarArchivo);
@@ -231,21 +243,20 @@ public class Home extends javax.swing.JPanel {
         jCargarArchivoLayout.setHorizontalGroup(
             jCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jCargarArchivoLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(72, 72, 72)
                 .addComponent(labelCargarArchivo)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jCargarArchivoLayout.setVerticalGroup(
             jCargarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jCargarArchivoLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(labelCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(labelCargarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jCargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 50, 230, -1));
+        jPanel1.add(jCargarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 40, 230, -1));
 
-        jExportar.setBackground(new java.awt.Color(50, 81, 143));
+        jExportar.setBackground(new java.awt.Color(149, 180, 199));
         jExportar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jExportarMouseClicked(evt);
@@ -259,8 +270,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelAnimar1.setBackground(new java.awt.Color(255, 255, 255));
-        labelAnimar1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelAnimar1.setForeground(new java.awt.Color(255, 255, 255));
+        labelAnimar1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelAnimar1.setForeground(new java.awt.Color(20, 34, 41));
         labelAnimar1.setText("CREAR IMG");
 
         javax.swing.GroupLayout jExportarLayout = new javax.swing.GroupLayout(jExportar);
@@ -268,9 +279,9 @@ public class Home extends javax.swing.JPanel {
         jExportarLayout.setHorizontalGroup(
             jExportarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jExportarLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(64, 64, 64)
                 .addComponent(labelAnimar1)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jExportarLayout.setVerticalGroup(
             jExportarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,9 +291,9 @@ public class Home extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(jExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 250, -1, -1));
+        jPanel1.add(jExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, -1, -1));
 
-        jPDF.setBackground(new java.awt.Color(50, 81, 143));
+        jPDF.setBackground(new java.awt.Color(149, 180, 199));
         jPDF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPDFMouseClicked(evt);
@@ -296,8 +307,8 @@ public class Home extends javax.swing.JPanel {
         });
 
         labelPDF.setBackground(new java.awt.Color(255, 255, 255));
-        labelPDF.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        labelPDF.setForeground(new java.awt.Color(255, 255, 255));
+        labelPDF.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        labelPDF.setForeground(new java.awt.Color(20, 34, 41));
         labelPDF.setText("CREAR PDF");
 
         javax.swing.GroupLayout jPDFLayout = new javax.swing.GroupLayout(jPDF);
@@ -305,19 +316,19 @@ public class Home extends javax.swing.JPanel {
         jPDFLayout.setHorizontalGroup(
             jPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPDFLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(65, 65, 65)
                 .addComponent(labelPDF)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPDFLayout.setVerticalGroup(
             jPDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPDFLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+            .addGroup(jPDFLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(labelPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 300, -1, -1));
+        jPanel1.add(jPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -344,8 +355,21 @@ public class Home extends javax.swing.JPanel {
 
         // Captura los errores léxicos y sintácticos
         LinkedList<Errores> lista = new LinkedList<>();
-        lista.addAll(s.listaErrores);
-        lista.addAll(p.listaErrores);
+           lista.addAll(s.listaErrores);
+           lista.addAll(p.listaErrores);
+
+           ErroresT panelErrores = Principal.getInstance().getPanelErrores();
+        if (panelErrores != null) {
+            for (Errores error : lista) {
+                panelErrores.agregarError(error.getTipo(), error.getLinea(), error.getColumna(), error.getDesc());
+            }
+        } else {
+            System.out.println("El panel de errores no está inicializado.");
+            // Si el panel es nulo, puedes mostrar los errores en la consola o en otro componente
+            for (Errores error : lista) {
+                System.out.println("Error: " + error.getTipo() + " en línea " + error.getLinea() + " columna " + error.getColumna() + ": " + error.getDesc());
+            }
+        }
 
         if (lista.isEmpty()) {
             
@@ -376,11 +400,11 @@ public class Home extends javax.swing.JPanel {
     }//GEN-LAST:event_jCompilarMouseClicked
 
     private void jCompilarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCompilarMouseEntered
-         jCompilar.setBackground(new Color(50,81,175));
+         jCompilar.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jCompilarMouseEntered
 
     private void jCompilarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCompilarMouseExited
-         jCompilar.setBackground(new Color(50,81,143));
+         jCompilar.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jCompilarMouseExited
 
     private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
@@ -392,40 +416,77 @@ public class Home extends javax.swing.JPanel {
 
     // Limpiar el contenido de la tabla en el panel de reportes
     Operaciones panelReportes = Principal.getInstance().getPanelReportes();
+    ErroresT panelErrores = Principal.getInstance().getPanelErrores();
     DefaultTableModel tableModel = (DefaultTableModel) panelReportes.getTbOperaciones().getModel();
     tableModel.setRowCount(0); 
     DefaultTableModel tableModel1 = (DefaultTableModel) panelReportes.getTbColores().getModel();
     tableModel1.setRowCount(0); 
     DefaultTableModel tableModel2 = (DefaultTableModel) panelReportes.getTbFiguras().getModel();
     tableModel2.setRowCount(0); 
+    DefaultTableModel tableMode3 = (DefaultTableModel) panelReportes.getTbAnimacion().getModel();
+    tableMode3.setRowCount(0); 
+    DefaultTableModel tableMode4 = (DefaultTableModel) panelErrores.getTbErroresLS().getModel();
+    tableMode4.setRowCount(0); 
     }//GEN-LAST:event_jLimpiarMouseClicked
 
     private void jLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseEntered
-        jLimpiar.setBackground(new Color(50,81,175));
+        jLimpiar.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jLimpiarMouseEntered
 
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
-        jLimpiar.setBackground(new Color(50,81,143));
+        jLimpiar.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jLimpiarMouseExited
 
     private void jAnimarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAnimarMouseClicked
-        Figura figura = Principal.getInstance().getUltimaFigura();
-    if (figura == null) {
-        System.out.println("No hay figura para animar.");
-        return;
-    }
-        System.out.println("Hay figura");
+        Principal principal = Principal.getInstance();
+    
+    PanelDibujo panelDibujo = principal.getPanelDibujo();
+    
+    Animador animador = Animador.getInstance();
+    animador.ejecutarAnimaciones();
+    
+    SwingUtilities.invokeLater(() -> {
+        if (panelDibujo.getFiguras().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay figuras para graficar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    // Mensaje de depuració
+        JFrame frame = new JFrame("Figuras Graficadas");
+        JScrollPane scrollPane = new JScrollPane(panelDibujo);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
+        // Crear botones de zoom
+        JButton btnZoomIn = new JButton("Zoom In");
+        btnZoomIn.addActionListener(e -> panelDibujo.setScaleFactor(panelDibujo.getScaleFactor() * 1.1));
+
+        JButton btnZoomOut = new JButton("Zoom Out");
+        btnZoomOut.addActionListener(e -> panelDibujo.setScaleFactor(panelDibujo.getScaleFactor() / 1.1));
+
+        // Crear un panel para los botones de control
+        JPanel controlPanel = new JPanel();
+        controlPanel.add(btnZoomIn);
+        controlPanel.add(btnZoomOut);
+        
+        // Añadir el panel de control en la parte inferior
+        frame.add(controlPanel, BorderLayout.SOUTH);
+
+        // Configurar la ventana
+        frame.setSize(800, 800);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+
+        System.out.println("Graficando figuras...");
+        System.out.println("Figuras graficadas.");
+    });
+        
     }//GEN-LAST:event_jAnimarMouseClicked
 
     private void jAnimarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAnimarMouseEntered
-        jAnimar.setBackground(new Color(50,81,175));
+        jAnimar.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jAnimarMouseEntered
 
     private void jAnimarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAnimarMouseExited
-        jAnimar.setBackground(new Color(50,81,143));
+        jAnimar.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jAnimarMouseExited
 
     private void jCargarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCargarArchivoMouseClicked
@@ -443,37 +504,51 @@ public class Home extends javax.swing.JPanel {
     }//GEN-LAST:event_jCargarArchivoMouseClicked
 
     private void jCargarArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCargarArchivoMouseEntered
-         jCargarArchivo.setBackground(new Color(50,81,175));
+         jCargarArchivo.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jCargarArchivoMouseEntered
 
     private void jCargarArchivoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCargarArchivoMouseExited
-        jCargarArchivo.setBackground(new Color(50,81,143));
+        jCargarArchivo.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jCargarArchivoMouseExited
 
     private void jPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPDFMouseClicked
         JPanel panelDibujo = Principal.getInstance().getPanelDibujo();
-        ExportarPDF.exportarPanelComoPDF(panelDibujo);
+        if(panelDibujo instanceof PanelDibujo){    
+            PanelDibujo panel = (PanelDibujo) panelDibujo;
+            if(!panel.getFiguras().isEmpty()){
+                ExportarPDF.exportarPanelComoPDF(panelDibujo);
+            } else {
+                JOptionPane.showMessageDialog(panelDibujo, "No hay figuras para exportar.", "Exportar PDF", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jPDFMouseClicked
 
     private void jPDFMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPDFMouseEntered
-         jPDF.setBackground(new Color(50,81,175));
+         jPDF.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jPDFMouseEntered
 
     private void jPDFMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPDFMouseExited
-        jPDF.setBackground(new Color(50,81,143));
+        jPDF.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jPDFMouseExited
 
     private void jExportarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExportarMouseExited
-        jExportar.setBackground(new Color(50,81,143));
+        jExportar.setBackground(new Color(149,180,199));
     }//GEN-LAST:event_jExportarMouseExited
 
     private void jExportarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExportarMouseEntered
-        jExportar.setBackground(new Color(50,81,175));
+        jExportar.setBackground(new Color(87,113,128));
     }//GEN-LAST:event_jExportarMouseEntered
 
     private void jExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExportarMouseClicked
         JPanel panelDibujo = Principal.getInstance().getPanelDibujo();
-        ExportarImagen.exportarPanelComoPNG(panelDibujo);
+        if(panelDibujo instanceof PanelDibujo){    
+            PanelDibujo panel = (PanelDibujo) panelDibujo;
+            if(!panel.getFiguras().isEmpty()){
+                 ExportarImagen.exportarPanelComoPNG(panelDibujo);
+            } else {
+                JOptionPane.showMessageDialog(panelDibujo, "No hay figuras para exportar.", "Exportar PNG", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jExportarMouseClicked
 
     private void mostrarErrores(LinkedList<Errores> lista) {

@@ -74,39 +74,39 @@ INICIO ::= INSTRUCCIONES:a          {:      RESULT = a;         :}
 ;
 
 INSTRUCCIONES ::= INSTRUCCIONES:a INSTRUCCION:b         {:     RESULT = a; RESULT.add(b);   :}
-                                    | INSTRUCCION:a                                                   {:      RESULT = new LinkedList<>();  RESULT.add(a);   :}
+              | INSTRUCCION:a                           {:     RESULT = new LinkedList<>();  RESULT.add(a);   :}
 ;
 
-INSTRUCCION ::= GRAFICAR CIRCULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                                     {:  RESULT = new GraficarCirculo(a,b,c,d,e, aleft, aright);   :}
-                                  | GRAFICAR CUADRADO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                                {:  RESULT = new GraficarCuadrado(a, b, c, d, e, aleft, aright);  :}
-                                  | GRAFICAR RECTANGULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C  {: RESULT = new GraficarRectangulo(a, b, c, d, e, f, aleft, aright); :}
-                                  | GRAFICAR LINEA PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C                   {: RESULT = new GraficarLinea(a, b, c, d, e, f, aleft, aright); :}
-                                  | GRAFICAR POLIGONO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA EXPRESION:f COMA COLOR:g PAR_C  {: RESULT = new GraficarPoligono(a, b, c, d, e, f, g, aleft, aright); :}
-                                  | ANIMAR OBJETO ANTERIOR PAR_A TIPOANIMACION:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d PAR_C                                            {: RESULT = new AnimarFigura(a, b, c, d, aleft, aright); :}
+INSTRUCCION ::= GRAFICAR CIRCULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                       {:  RESULT = new GraficarCirculo(a,b,c,d,e, aleft, aright);         :}
+             | GRAFICAR CUADRADO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA COLOR:e PAR_C                                       {:  RESULT = new GraficarCuadrado(a, b, c, d, e, aleft, aright);    :}
+             | GRAFICAR RECTANGULO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C                    {: RESULT = new GraficarRectangulo(a, b, c, d, e, f, aleft, aright);:}
+             | GRAFICAR LINEA PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA COLOR:f PAR_C                         {: RESULT = new GraficarLinea(a, b, c, d, e, f, aleft, aright);     :}
+             | GRAFICAR POLIGONO PAR_A ID:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d COMA EXPRESION:e COMA EXPRESION:f COMA COLOR:g PAR_C     {: RESULT = new GraficarPoligono(a, b, c, d, e, f, g, aleft, aright);:}
+             | ANIMAR OBJETO ANTERIOR PAR_A TIPOANIMACION:a COMA EXPRESION:b COMA EXPRESION:c COMA EXPRESION:d PAR_C                                    {: RESULT = new AnimarFigura(a, b, c, d, aleft, aright);            :}
 ;
 
-EXPRESION ::= MENOS EXPRESION:a                                                             {:      RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright );     :}%prec UMENOS
-                            |  EXPRESION:a MAS EXPRESION:b                                      {:      RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.SUMA, aleft, aright );     :}%prec MAS
-                            | EXPRESION:a MENOS EXPRESION:b                                {: RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.RESTA, aleft, aright);        :}%prec MENOS
-                            | EXPRESION:a MULTIPLICACION EXPRESION:b            {: RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.MULTIPLICACION, aleft, aright);:} %prec MULTIPLICACION
-                            | EXPRESION:a DIVISION EXPRESION:b                             {: RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.DIVISION, aleft, aright);      :}%prec DIVISION
-                            |  ENTERO:a                                                                                     {:      RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright );     :}
-                            |  DECIMAL:a                                                                                    {:      RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright );     :}
-                            | PAR_A EXPRESION:a PAR_C                                                   {: RESULT = a; :}
+EXPRESION ::= MENOS EXPRESION:a                                                            {:      RESULT = new Aritmeticas(a, OperadoresAritmeticos.NEGACION, aleft, aright );   :}%prec UMENOS
+                            |  EXPRESION:a MAS EXPRESION:b                                 {:      RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.SUMA, aleft, aright );     :}%prec MAS
+                            | EXPRESION:a MENOS EXPRESION:b                                {:      RESULT = new Aritmeticas(a,b, OperadoresAritmeticos.RESTA, aleft, aright);        :}%prec MENOS
+                            | EXPRESION:a MULTIPLICACION EXPRESION:b                       {:      RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.MULTIPLICACION, aleft, aright);:} %prec MULTIPLICACION
+                            | EXPRESION:a DIVISION EXPRESION:b                             {:      RESULT = new Aritmeticas(a,b,OperadoresAritmeticos.DIVISION, aleft, aright);      :}%prec DIVISION
+                            |  ENTERO:a                                                    {:      RESULT = new Nativo(Integer.parseInt(a), new Tipo(TipoDato.ENTERO), aleft, aright );     :}
+                            |  DECIMAL:a                                                   {:      RESULT = new Nativo(new Double(a), new Tipo(TipoDato.DECIMAL), aleft, aright );     :}
+                            | PAR_A EXPRESION:a PAR_C                                      {:      RESULT = a; :}
 ;
 
-TIPOANIMACION::=              LINEA:a               {: RESULT = "linea";   :}
-                                                   |  CURVA:a                 {: RESULT = "curva";  :}
+TIPOANIMACION::=                 LINEA:a               {: RESULT = "linea";   :}
+                                 CURVA:a               {: RESULT = "curva";   :}
 ;
 
-COLOR ::=                                   AZUL:a               {: RESULT = "azul"; :}
-                                                     | ROJO:a                {: RESULT = "rojo"; :}
-                                                     | AMARILLO:a      {: RESULT = "amarillo"; :}
-                                                     | VERDE:a              {: RESULT = "verde"; :}
-                                                     | ROSADO:a              {: RESULT = "rosado"; :}
-                                                     | CELESTE:a              {: RESULT = "celeste"; :}
-                                                     | GRIS:a              {: RESULT = "gris"; :}
-                                                     | NEGRO:a              {: RESULT = "negro"; :}
-                                                     | ANARANJADO:a              {: RESULT = "anaranjado"; :}
+COLOR ::=                        AZUL:a                 {: RESULT = "azul";     :}
+                                 | ROJO:a               {: RESULT = "rojo";     :}
+                                 | AMARILLO:a           {: RESULT = "amarillo"; :}
+                                 | VERDE:a              {: RESULT = "verde";    :}
+                                 | ROSADO:a             {: RESULT = "rosado";   :}
+                                 | CELESTE:a            {: RESULT = "celeste";  :}
+                                 | GRIS:a               {: RESULT = "gris";     :}
+                                 | NEGRO:a              {: RESULT = "negro";    :}
+                                 | ANARANJADO:a         {: RESULT = "anaranjado"; :}
 ;
             
