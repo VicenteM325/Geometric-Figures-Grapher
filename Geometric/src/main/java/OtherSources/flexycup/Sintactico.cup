@@ -96,7 +96,7 @@ EXPRESION ::= MENOS EXPRESION:a                                                 
 ;
 
 TIPOANIMACION::=                 LINEA:a               {: RESULT = "linea";   :}
-                                 CURVA:a               {: RESULT = "curva";   :}
+                                | CURVA:a               {: RESULT = "curva";   :}
 ;
 
 COLOR ::=                        AZUL:a                 {: RESULT = "azul";     :}

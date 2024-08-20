@@ -73,18 +73,22 @@ public class Animador {
     }
 
     private void animarCurva(Figura figura, int destinoX, int destinoY, int orden) {
-        // Coordenadas iniciales de la figura
         int startX = figura.getX();
         int startY = figura.getY();
-
-        // Punto de control para la curva Bezier cuadrática
         int controlX = (startX + destinoX) / 2;
         int controlY = Math.min(startY, destinoY) - Math.abs(destinoY - startY) / 2;
 
-        Timer timer = new Timer(orden, e -> {
 
-            long elapsed = System.currentTimeMillis() - ((Timer) e.getSource()).getInitialDelay();
-            float t = Math.min(elapsed / 1000f, 1);
+        final int interval = 20;
+
+        final long duration = orden * 1000; // Duración total basada en el valor de orden
+
+        // Tiempo de inicio
+        final long startTime = System.currentTimeMillis();
+
+        Timer timer = new Timer(interval, e -> {
+            long elapsed = System.currentTimeMillis() - startTime;
+            float t = Math.min(elapsed / (float) duration, 1);
 
             if (t >= 1) {
                 ((Timer) e.getSource()).stop();
@@ -92,7 +96,6 @@ public class Animador {
                 figura.setY(destinoY);
                 Principal.getInstance().getPanelDibujo().repaint();
             } else {
-                // Interpolación de Bézier cuadrática
                 float u = 1 - t;
                 int x = (int) (Math.pow(u, 2) * startX
                         + 2 * u * t * controlX
@@ -106,8 +109,6 @@ public class Animador {
             }
         });
 
-        timer.setInitialDelay(0);
         timer.start();
     }
 }
-
